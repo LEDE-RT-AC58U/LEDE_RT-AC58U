@@ -44,6 +44,9 @@ ipq806x_board_detect() {
 	*"R7800")
 		name="r7800"
 		;;
+	*"RT-AC58U")
+		name="rt-ac58u"
+		;;
 	*"VR2600v")
 		name="vr2600v"
 		;;
@@ -60,6 +63,15 @@ ipq806x_board_detect() {
 	echo "$IPQ806X_MODEL" > /tmp/sysinfo/model
 }
 
+ipq806x_board_name() {
+	local name
+
+	[ -f /tmp/sysinfo/board_name ] && name=$(cat /tmp/sysinfo/board_name)
+	[ -z "$name" ] && name="unknown"
+
+	echo "$name"
+}
+
 ipq806x_get_dt_led() {
 	local label
 	local ledpath
@@ -70,4 +82,16 @@ ipq806x_get_dt_led() {
 	[ -n "$ledpath" ] && label=$(cat "$basepath$ledpath/label")
 
 	echo "$label"
+}
+
+ipq40xx_get_dt_mac() {
+	local mac
+	local ethpath
+	local basepath="/sys/firmware/devicetree/base"
+	local nodepath="$basepath/aliases/ethernet$1"
+
+	[ -f "$nodepath" ] && ethpath=$(cat "$nodepath")
+	[ -n "$ethpath" ] && mac=$(cat "$basepath$ethpath/local-mac-address")
+
+	echo "$mac" | hexdump -v -n 6 -e '5/1 "%02x:" 1/1 "%02x"' $part 2>/dev/null
 }
