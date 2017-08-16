@@ -1,29 +1,26 @@
+This is LEDE fork to build Asus RT-AC58U firmware. It is combined from LEDE trunk and a fork by chunkey
+https://github.com/chunkeey/LEDE-IPQ40XX
+
+rt-ac58u.config is a firmware configuration file to build sysupgrade.
+
+To build firmware follow LEDE guides.
 This is the buildsystem for the LEDE Linux distribution.
 
-Please use "make menuconfig" to choose your preferred
-configuration for the toolchain and firmware.
+Run "./scripts/feeds update -a" to get all the latest package definitions
+defined in feeds.conf
+and "./scripts/feeds install -a" to install symlinks of all of them into
+package/feeds/.
+
+Rename rt-ac58u.config to .config
+Please use "make menuconfig" to modify this configuration if needed.
 
 You need to have installed gcc, binutils, bzip2, flex, python, perl, make,
 find, grep, diff, unzip, gawk, getopt, subversion, libz-dev and libc headers.
 
-Run "./scripts/feeds update -a" to get all the latest package definitions
-defined in feeds.conf / feeds.conf.default respectively
-and "./scripts/feeds install -a" to install symlinks of all of them into
-package/feeds/.
-
-Use "make menuconfig" to configure your image.
 
 Simply running "make" will build your firmware.
 It will download all sources, build the cross-compile toolchain, 
 the kernel and all choosen applications.
 
-To build your own firmware you need to have access to a Linux, BSD or MacOSX system
-(case-sensitive filesystem required). Cygwin will not be supported because of
-the lack of case sensitiveness in the file system.
-
-
-Sunshine!
-	Your LEDE Community
-	http://www.lede-project.org
 
 
