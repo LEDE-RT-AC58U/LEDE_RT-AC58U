@@ -1,10 +1,11 @@
-. /lib/ipq806x.sh
-
 PART_NAME=firmware
 REQUIRE_IMAGE_METADATA=1
 
+RAMFS_COPY_BIN='fw_printenv fw_setenv'
+RAMFS_COPY_DATA='/etc/fw_env.config /var/lock/fw_printenv.lock'
+
 platform_check_image() {
-	local board=$(ipq806x_board_name)
+	local board=$(board_name)
 
 	case "$board" in
 	rt-ac58u)
@@ -30,10 +31,8 @@ EOF
 	return 0
 }
 
-platform_pre_upgrade() {
-	local board=$(ipq806x_board_name)
-
-	case "$board" in
+platform_do_upgrade() {
+	case "$(board_name)" in
 	ap148 |\
 	ap-dk04.1-c1 |\
 	d7800 |\
@@ -41,23 +40,8 @@ platform_pre_upgrade() {
 	r7500 |\
 	r7500v2 |\
 	r7800)
-		nand_do_upgrade "$1"
+		nand_do_upgrade "$ARGV"
 		;;
-	ea8500)
-		linksys_preupgrade "$1"
-		;;
-	rt-ac58u)
-		CI_UBIPART="UBI_DEV"
-		CI_KERNPART="linux"
-		nand_do_upgrade "$1"
-		;;
-	esac
-}
-
-platform_do_upgrade() {
-	local board=$(ipq806x_board_name)
-
-	case "$board" in
 	c2600)
 		PART_NAME="os-image:rootfs"
 		MTD_CONFIG_ARGS="-s 0x200000"
@@ -71,6 +55,11 @@ platform_do_upgrade() {
 		MTD_CONFIG_ARGS="-s 0x200000"
 		default_do_upgrade "$ARGV"
 		;;
+	rt-ac58u)
+		CI_UBIPART="UBI_DEV"
+		CI_KERNPART="linux"
+		nand_do_upgrade "$1"
+		;;
 	*)
 		default_do_upgrade "$ARGV"
 		;;
@@ -78,9 +67,7 @@ platform_do_upgrade() {
 }
 
 platform_nand_pre_upgrade() {
-	local board=$(ipq806x_board_name)
-
-	case "$board" in
+	case "$(board_name)" in
 	nbg6817)
 		zyxel_do_upgrade "$1"
 		;;
