@@ -4,10 +4,11 @@
 #
 
 . /lib/functions/uci-defaults.sh
+. /lib/ipq806x.sh
 
 board_config_update
 
-board=$(board_name)
+board=$(ipq806x_board_name)
 
 case "$board" in
 c2600)

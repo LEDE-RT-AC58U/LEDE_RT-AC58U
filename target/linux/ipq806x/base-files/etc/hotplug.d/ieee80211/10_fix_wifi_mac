@@ -6,10 +6,10 @@ PHYNBR=${DEVPATH##*/phy}
 
 [ -n $PHYNBR ] || exit 0
 
-. /lib/functions.sh
+. /lib/ipq806x.sh
 . /lib/functions/system.sh
 
-board=$(board_name)
+board=$(ipq806x_board_name)
 
 case "$board" in
 	c2600)
