@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 From a30335a8948ddcb0bc2d3db5bb13d9599af86cca Mon Sep 17 00:00:00 2001
 Message-Id: <a30335a8948ddcb0bc2d3db5bb13d9599af86cca.1499017628.git.chunkeey@googlemail.com>
 In-Reply-To: <73f822f3f969fa2c9ed25097ab8c70826b265491.1499017628.git.chunkeey@googlemail.com>
@@ -5,6 +6,16 @@ References: <73f822f3f969fa2c9ed25097ab8c70826b265491.1499017628.git.chunkeey@go
 From: Ram Chandra Jangir <rjangir@codeaurora.org>
 Date: Wed, 10 May 2017 12:51:51 +0200
 Subject: [PATCH v2 2/3] pinctrl: qcom: ipq4019: add remaining pin definitions
+=======
+From 941e3869bdeddb2bebcc52ebfd57efe014887bc6 Mon Sep 17 00:00:00 2001
+Message-Id: <941e3869bdeddb2bebcc52ebfd57efe014887bc6.1500038134.git.chunkeey@googlemail.com>
+In-Reply-To: <d45ae31e888ad858d9f4396cabb4dc32a3f0365e.1500038134.git.chunkeey@googlemail.com>
+References: <d45ae31e888ad858d9f4396cabb4dc32a3f0365e.1500038134.git.chunkeey@googlemail.com>
+From: Ram Chandra Jangir <rjangir@codeaurora.org>
+Date: Wed, 10 May 2017 12:51:51 +0200
+Subject: [PATCH v3 2/3] pinctrl: qcom: ipq4019: add most remaining pin
+ definitions
+>>>>>>> 7c63d111ce2e8925ffea7a878378219573d8eb63
 To: linux-gpio@vger.kernel.org,
     devicetree@vger.kernel.org
 Cc: Linus Walleij <linus.walleij@linaro.org>,
@@ -27,12 +38,23 @@ Cc: John Crispin <john@phrozen.org>
 Signed-off-by: Ram Chandra Jangir <rjangir@codeaurora.org>
 Signed-off-by: Christian Lamparter <chunkeey@googlemail.com>
 ---
+<<<<<<< HEAD
  drivers/pinctrl/qcom/pinctrl-ipq4019.c | 467 +++++++++++++++++++++++++++------
  1 file changed, 380 insertions(+), 87 deletions(-)
 
 --- a/drivers/pinctrl/qcom/pinctrl-ipq4019.c
 +++ b/drivers/pinctrl/qcom/pinctrl-ipq4019.c
 @@ -277,12 +277,55 @@ DECLARE_QCA_GPIO_PINS(99);
+=======
+ drivers/pinctrl/qcom/pinctrl-ipq4019.c | 431 ++++++++++++++++++++++++++-------
+ 1 file changed, 346 insertions(+), 85 deletions(-)
+
+diff --git a/drivers/pinctrl/qcom/pinctrl-ipq4019.c b/drivers/pinctrl/qcom/pinctrl-ipq4019.c
+index 743d1f458205..9e7f23d29cda 100644
+--- a/drivers/pinctrl/qcom/pinctrl-ipq4019.c
++++ b/drivers/pinctrl/qcom/pinctrl-ipq4019.c
+@@ -277,12 +277,49 @@ DECLARE_QCA_GPIO_PINS(99);
+>>>>>>> 7c63d111ce2e8925ffea7a878378219573d8eb63
  
  enum ipq4019_functions {
  	qca_mux_gpio,
@@ -81,6 +103,7 @@ Signed-off-by: Christian Lamparter <chunkeey@googlemail.com>
 +	qca_mux_smart3,
 +	qca_mux_tm,
 +	qca_mux_wifi0,
+<<<<<<< HEAD
 +	qca_mux_wifi0_uart,
 +	qca_mux_wifi0_uart0,
 +	qca_mux_wifi0_uart1,
@@ -92,6 +115,13 @@ Signed-off-by: Christian Lamparter <chunkeey@googlemail.com>
  };
  
 @@ -303,108 +346,357 @@ static const char * const gpio_groups[]
+=======
++	qca_mux_wifi1,
+ 	qca_mux_NA,
+ };
+ 
+@@ -303,108 +340,331 @@ static const char * const gpio_groups[] = {
+>>>>>>> 7c63d111ce2e8925ffea7a878378219573d8eb63
  	"gpio92", "gpio93", "gpio94", "gpio95", "gpio96", "gpio97", "gpio98",
  	"gpio99",
  };
@@ -244,6 +274,7 @@ Signed-off-by: Christian Lamparter <chunkeey@googlemail.com>
 +	"gpio37", "gpio40", "gpio41", "gpio42", "gpio50", "gpio51", "gpio52",
 +	"gpio53", "gpio56", "gpio57", "gpio58", "gpio98",
 +};
+<<<<<<< HEAD
 +static const char * const wifi0_uart_groups[] = {
 +	"gpio8", "gpio9", "gpio11", "gpio19", "gpio62",
 +};
@@ -253,10 +284,13 @@ Signed-off-by: Christian Lamparter <chunkeey@googlemail.com>
 +static const char * const wifi0_uart1_groups[] = {
 +	"gpio18", "gpio63",
 +};
+=======
+>>>>>>> 7c63d111ce2e8925ffea7a878378219573d8eb63
 +static const char * const wifi1_groups[] = {
 +	"gpio37", "gpio40", "gpio41", "gpio43", "gpio50", "gpio51", "gpio52",
 +	"gpio53", "gpio56", "gpio57", "gpio58", "gpio98",
 +};
+<<<<<<< HEAD
 +static const char * const wifi1_uart_groups[] = {
 +	"gpio8", "gpio11", "gpio19", "gpio62", "gpio63",
 +};
@@ -266,6 +300,8 @@ Signed-off-by: Christian Lamparter <chunkeey@googlemail.com>
 +static const char * const wifi1_uart1_groups[] = {
 +	"gpio18", "gpio63",
 +};
+=======
+>>>>>>> 7c63d111ce2e8925ffea7a878378219573d8eb63
  
  static const struct msm_function ipq4019_functions[] = {
 -	FUNCTION(gpio),
@@ -315,6 +351,7 @@ Signed-off-by: Christian Lamparter <chunkeey@googlemail.com>
 +	FUNCTION(smart3),
 +	FUNCTION(tm),
 +	FUNCTION(wifi0),
+<<<<<<< HEAD
 +	FUNCTION(wifi0_uart),
 +	FUNCTION(wifi0_uart0),
 +	FUNCTION(wifi0_uart1),
@@ -322,6 +359,9 @@ Signed-off-by: Christian Lamparter <chunkeey@googlemail.com>
 +	FUNCTION(wifi1_uart),
 +	FUNCTION(wifi1_uart0),
 +	FUNCTION(wifi1_uart1),
+=======
++	FUNCTION(wifi1),
+>>>>>>> 7c63d111ce2e8925ffea7a878378219573d8eb63
  };
  
  static const struct msm_pingroup ipq4019_groups[] = {
@@ -343,8 +383,45 @@ Signed-off-by: Christian Lamparter <chunkeey@googlemail.com>
 -	PINGROUP(15, blsp_spi0, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
 -	PINGROUP(16, blsp_uart0, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
 -	PINGROUP(17, blsp_uart0, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+<<<<<<< HEAD
 -	PINGROUP(18, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
 -	PINGROUP(19, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+=======
++	PINGROUP(0, jtag, smart0, i2s_rx, NA, NA, NA, NA, NA, NA, NA, NA, NA,
++		 NA, NA),
++	PINGROUP(1, jtag, smart0, i2s_rx, NA, NA, NA, NA, NA, NA, NA, NA, NA,
++		 NA, NA),
++	PINGROUP(2, jtag, smart0, i2s_rx, NA, NA, NA, NA, NA, NA, NA, NA, NA,
++		 NA, NA),
++	PINGROUP(3, jtag, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
++	PINGROUP(4, jtag, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
++	PINGROUP(5, jtag, smart0, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,
++		 NA),
++	PINGROUP(6, mdio, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
++	PINGROUP(7, mdc, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
++	PINGROUP(8, blsp_uart1, NA, NA, smart1, NA, NA, NA, NA, NA, NA, NA,
++		 NA, NA, NA),
++	PINGROUP(9, blsp_uart1, NA, NA, smart1, NA, NA, NA, NA, NA, NA, NA,
++		 NA, NA, NA),
++	PINGROUP(10, blsp_uart1, NA, NA, blsp_i2c0, NA, NA, NA, NA, NA, NA, NA,
++		 NA, NA, NA),
++	PINGROUP(11, blsp_uart1, NA, NA, blsp_i2c0, NA, NA, NA, NA, NA, NA, NA,
++		 NA, NA, NA),
++	PINGROUP(12, blsp_spi0, blsp_i2c1, NA, NA, NA, NA, NA, NA, NA, NA, NA,
++		 NA, NA, NA),
++	PINGROUP(13, blsp_spi0, blsp_i2c1, NA, NA, NA, NA, NA, NA, NA, NA, NA,
++		 NA, NA, NA),
++	PINGROUP(14, blsp_spi0, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,
++		 NA),
++	PINGROUP(15, blsp_spi0, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,
++		 NA),
++	PINGROUP(16, blsp_uart0, led0, smart1, NA, NA, NA, NA, NA, NA, NA, NA,
++		 NA, NA, NA),
++	PINGROUP(17, blsp_uart0, led1, smart1, NA, NA, NA, NA, NA, NA, NA, NA,
++		 NA, NA, NA),
+ 	PINGROUP(18, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+ 	PINGROUP(19, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+>>>>>>> 7c63d111ce2e8925ffea7a878378219573d8eb63
 -	PINGROUP(20, blsp_i2c0, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
 -	PINGROUP(21, blsp_i2c0, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
 -	PINGROUP(22, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
@@ -395,6 +472,7 @@ Signed-off-by: Christian Lamparter <chunkeey@googlemail.com>
 -	PINGROUP(67, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
 -	PINGROUP(68, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
 -	PINGROUP(69, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+<<<<<<< HEAD
 +	PINGROUP(0, jtag, smart0, i2s_rx, NA, NA, NA, NA, NA, NA, NA, NA, NA,
 +		 NA, NA),
 +	PINGROUP(1, jtag, smart0, i2s_rx, NA, NA, NA, NA, NA, NA, NA, NA, NA,
@@ -431,6 +509,8 @@ Signed-off-by: Christian Lamparter <chunkeey@googlemail.com>
 +		 NA, NA, NA, NA),
 +	PINGROUP(19, wifi0_uart, wifi1_uart, NA, NA, NA, NA, NA, NA, NA, NA,
 +		 NA, NA, NA, NA),
+=======
+>>>>>>> 7c63d111ce2e8925ffea7a878378219573d8eb63
 +	PINGROUP(20, blsp_i2c0, i2s_rx, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,
 +		 NA, NA),
 +	PINGROUP(21, blsp_i2c0, i2s_rx, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,
@@ -515,10 +595,17 @@ Signed-off-by: Christian Lamparter <chunkeey@googlemail.com>
 +		 NA, NA, NA, NA, NA, tm, NA),
 +	PINGROUP(61, qpic, blsp_uart0, smart1, smart3, led1, i2s_tx, i2s_rx,
 +		 NA, NA, NA, NA, NA, tm, NA),
+<<<<<<< HEAD
 +	PINGROUP(62, qpic, chip_rst, wifi0_uart, wifi1_uart, i2s_spdif_out, NA,
 +		 NA, NA, NA, NA, tm, NA, NA, NA),
 +	PINGROUP(63, qpic, wifi0_uart1, wifi1_uart1, wifi1_uart, i2s_td,
 +		 i2s_rx, i2s_spdif_out, i2s_spdif_in, NA, NA, NA, NA, tm, NA),
+=======
++	PINGROUP(62, qpic, chip_rst, NA, NA, i2s_spdif_out, NA, NA, NA, NA, NA,
++		 tm, NA, NA, NA),
++	PINGROUP(63, qpic, NA, NA, NA, i2s_td, i2s_rx, i2s_spdif_out,
++		 i2s_spdif_in, NA, NA, NA, NA, tm, NA),
+>>>>>>> 7c63d111ce2e8925ffea7a878378219573d8eb63
 +	PINGROUP(64, qpic, audio_pwm, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,
 +		 NA, NA),
 +	PINGROUP(65, qpic, audio_pwm, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,
@@ -532,7 +619,11 @@ Signed-off-by: Christian Lamparter <chunkeey@googlemail.com>
  	PINGROUP(70, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
  	PINGROUP(71, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
  	PINGROUP(72, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+<<<<<<< HEAD
 @@ -433,7 +725,8 @@ static const struct msm_pingroup ipq4019
+=======
+@@ -433,7 +693,8 @@ static const struct msm_pingroup ipq4019_groups[] = {
+>>>>>>> 7c63d111ce2e8925ffea7a878378219573d8eb63
  	PINGROUP(95, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
  	PINGROUP(96, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
  	PINGROUP(97, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
@@ -542,3 +633,9 @@ Signed-off-by: Christian Lamparter <chunkeey@googlemail.com>
  	PINGROUP(99, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
  };
  
+<<<<<<< HEAD
+=======
+-- 
+2.13.2
+
+>>>>>>> 7c63d111ce2e8925ffea7a878378219573d8eb63
