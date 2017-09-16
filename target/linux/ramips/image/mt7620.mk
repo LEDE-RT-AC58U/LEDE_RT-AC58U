@@ -32,6 +32,17 @@ define Device/Archer
   IMAGE/sysupgrade.bin := tplink-v2-image -s | append-metadata
 endef
 
+define Device/ArcherC20
+  $(Device/Archer)
+  DTS := ArcherC20
+  SUPPORTED_DEVICES := c20
+  TPLINK_BOARD_ID := ArcherC20
+  IMAGES += factory.bin
+  DEVICE_TITLE := TP-Link ArcherC20
+  DEVICE_PACKAGES := kmod-usb-core kmod-usb2 kmod-usb-ledtrig-usbport
+endef
+TARGET_DEVICES += ArcherC20
+
 define Device/ArcherC20i
   $(Device/Archer)
   DTS := ArcherC20i
@@ -479,6 +490,15 @@ define Device/youku-yk1
   DEVICE_TITLE := YOUKU YK1
 endef
 TARGET_DEVICES += youku-yk1
+
+define Device/we1026-5g-16m
+  DTS := WE1026-5G-16M
+  IMAGE_SIZE := 16777216
+  SUPPORTED_DEVICES += we1026-5g-16m
+  DEVICE_TITLE := Zbtlink ZBT-WE1026-5G (16M)
+  DEVICE_PACKAGES := kmod-usb2 kmod-usb-ohci kmod-mt76 kmod-sdhci-mt7620
+endef
+TARGET_DEVICES += we1026-5g-16m
 
 define Device/zbt-ape522ii
   DTS := ZBT-APE522II
