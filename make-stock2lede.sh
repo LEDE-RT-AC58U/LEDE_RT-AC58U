@@ -39,10 +39,11 @@ cat <<EOT >> ./files/etc/init.d/zupgrade
 
 START=99
 boot() {
+cp -f /sysupgrade.tar /tmp/
 sleep 5
 /usr/sbin/ubirmvol /dev/ubi0 -N jffs2
 sleep 5
-/sbin/sysupgrade /sysupgrade.tar
+/sbin/sysupgrade /tmp/sysupgrade.tar
 }
 
 EOT
