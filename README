@@ -22,5 +22,7 @@ Simply running "make" will build your firmware.
 It will download all sources, build the cross-compile toolchain, 
 the kernel and all choosen applications.
 
+Binary firmware and flashing instruction can be found here - http://lede-ac58u.zyxmon.org/
+
 
 
