@@ -64,7 +64,7 @@ else
   ifeq ($(call qstrip,$(CONFIG_EXTERNAL_KERNEL_TREE))$(call qstrip,$(CONFIG_KERNEL_GIT_CLONE_URI)),)
       LINUX_SITE:=@KERNEL/linux/kernel/v$(word 1,$(subst ., ,$(KERNEL_BASE))).x$(TESTING)
   else
-      LINUX_UNAME_VERSION:=$(strip $(shell cat $(LINUX_DIR)/include/config/kernel.release))
+      LINUX_UNAME_VERSION:=$(strip $(shell cat $(LINUX_DIR)/include/config/kernel.release 2>/dev/null))
   endif
 
   MODULES_SUBDIR:=lib/modules/$(LINUX_UNAME_VERSION)
@@ -85,6 +85,8 @@ else ifneq (,$(findstring $(ARCH) , armeb ))
   LINUX_KARCH := arm
 else ifneq (,$(findstring $(ARCH) , mipsel mips64 mips64el ))
   LINUX_KARCH := mips
+else ifneq (,$(findstring $(ARCH) , powerpc64 ))
+  LINUX_KARCH := powerpc
 else ifneq (,$(findstring $(ARCH) , sh2 sh3 sh4 ))
   LINUX_KARCH := sh
 else ifneq (,$(findstring $(ARCH) , i386 x86_64 ))
@@ -120,6 +122,32 @@ KERNEL_MAKEOPTS := -C $(LINUX_DIR) $(KERNEL_MAKE_FLAGS)
 ifdef CONFIG_USE_SPARSE
   KERNEL_MAKEOPTS += C=1 CHECK=$(STAGING_DIR_HOST)/bin/sparse
 endif
+
+PKG_EXTMOD_SUBDIRS ?= .
+
+define populate_module_symvers
+	cat /dev/null > $(PKG_INFO_DIR)/$(PKG_NAME).symvers; \
+	for subdir in $(PKG_EXTMOD_SUBDIRS); do \
+		cat $(PKG_INFO_DIR)/*.symvers 2>/dev/null > $(PKG_BUILD_DIR)/$$$$subdir/Module.symvers; \
+	done
+endef
+
+define collect_module_symvers
+	for subdir in $(PKG_EXTMOD_SUBDIRS); do \
+		grep -F $(PKG_BUILD_DIR) $(PKG_BUILD_DIR)/$$$$subdir/Module.symvers >> $(PKG_BUILD_DIR)/Module.symvers.tmp; \
+	done; \
+	sort -u $(PKG_BUILD_DIR)/Module.symvers.tmp > $(PKG_BUILD_DIR)/Module.symvers; \
+	mv $(PKG_BUILD_DIR)/Module.symvers $(PKG_INFO_DIR)/$(PKG_NAME).symvers
+endef
+
+define KernelPackage/hooks
+  ifneq ($(PKG_NAME),kernel)
+    Hooks/Compile/Pre += populate_module_symvers
+    Hooks/Compile/Post += collect_module_symvers
+  endif
+  define KernelPackage/hooks
+  endef
+endef
 
 define KernelPackage/Defaults
   FILES:=
@@ -228,6 +256,7 @@ $(call KernelPackage/$(1)/config)
   endif
 
   $(call KernelPackage/depends)
+  $(call KernelPackage/hooks)
 
   ifneq ($(if $(filter-out %=y %=n %=m,$(KCONFIG)),$(filter m y,$(foreach c,$(filter-out %=y %=n %=m,$(KCONFIG)),$($(c)))),.),)
     ifneq ($(strip $(FILES)),)
