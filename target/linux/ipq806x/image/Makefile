@@ -181,7 +181,6 @@ define Device/FRITZ4040
 	DEVICE_TITLE := AVM Fritz!Box 4040
 	IMAGE_SIZE := 29753344
 	IMAGES = sysupgrade.bin
-	FILESYSTEMS := squashfs
 	IMAGE/sysupgrade.bin := append-kernel | append-rootfs | pad-rootfs | append-metadata
 	DEVICE_PACKAGES := kmod-usb-phy-qcom-ipq4019 ipq-wifi-fritz4040 fritz-tffs fritz-caldata u-boot-fritz4040
 endef
@@ -258,7 +257,7 @@ define Device/NBG6817
 	BLOCKSIZE := 64k
 	BOARD_NAME := nbg6817
 	DEVICE_TITLE := ZyXEL NBG6817
-	DEVICE_PACKAGES := ath10k-firmware-qca9984 e2fsprogs losetup
+	DEVICE_PACKAGES := ath10k-firmware-qca9984 e2fsprogs kmod-fs-ext4 losetup
 	$(call Device/ZyXELImage)
 endef
 
@@ -279,6 +278,22 @@ define Device/VR2600v
 	IMAGE/sysupgrade.bin := pad-extra 512 | append-kernel | pad-to $$$${KERNEL_SIZE} | append-rootfs | pad-rootfs | append-metadata
 endef
 
+define Device/AP-DK01.1-C1
+	PROFILES += $$(DEVICE_NAME)
+	DEVICE_TITLE := QCA AP-DK01.1-C1
+	BOARD_NAME := ap-dk01.1-c1
+	DEVICE_DTS := qcom-ipq4019-ap.dk01.1-c1
+	KERNEL_LOADADDR := 0x80208000
+	KERNEL_INSTALL := 1
+	KERNEL_SIZE := 4096k
+	IMAGE_SIZE := 26624k
+	FILESYSTEMS := squashfs
+	$(call Device/FitImage)
+	IMAGES := sysupgrade.bin
+	IMAGE/sysupgrade.bin := append-kernel | pad-to $$$${KERNEL_SIZE} | append-rootfs | pad-rootfs | append-metadata
+	DEVICE_PACKAGES := ath10k-firmware-qca4019
+endef
+
 define Device/AP-DK04.1-C1
 	$(call Device/FitImage)
 	$(call Device/UbiFit)
@@ -293,7 +308,7 @@ define Device/AP-DK04.1-C1
 endef
 
 TARGET_DEVICES += AP148 AP148-legacy C2600 D7800 DB149 EA8500 FRITZ4040 R7500 \
-		  R7500v2 R7800 RT-AC58U NBG6817 VR2600v AP-DK04.1-C1
+		  R7500v2 R7800 NBG6817 VR2600v AP-DK01.1-C1 AP-DK04.1-C1
 
 .NOTPARALLEL:
 

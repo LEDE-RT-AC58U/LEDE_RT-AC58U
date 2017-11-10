@@ -40,7 +40,7 @@
  		case SHIFT_JIS:
  			if (c-0xa1 <= 0xdf-0xa1) {
  				c += 0xff61-0xa1;
-@@ -362,6 +367,7 @@ size_t iconv(iconv_t cd0, char **restric
+@@ -370,6 +375,7 @@ size_t iconv(iconv_t cd0, char **restric
  			c = ksc[c][d];
  			if (!c) goto ilseq;
  			break;
