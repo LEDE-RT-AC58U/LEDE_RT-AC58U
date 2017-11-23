@@ -450,7 +450,7 @@ $(eval $(call KernelPackage,ne2k-pci))
 define KernelPackage/e100
   SUBMENU:=$(NETWORK_DEVICES_MENU)
   TITLE:=Intel(R) PRO/100+ cards kernel support
-  DEPENDS:=@PCI_SUPPORT +kmod-mii
+  DEPENDS:=@PCI_SUPPORT +kmod-mii +e100-firmware
   KCONFIG:=CONFIG_E100
   FILES:=$(LINUX_DIR)/drivers/net/ethernet/intel/e100.ko
   AUTOLOAD:=$(call AutoProbe,e100)
@@ -458,13 +458,6 @@ endef
 
 define KernelPackage/e100/description
  Kernel modules for Intel(R) PRO/100+ Ethernet adapters
-endef
-
-define KernelPackage/e100/install
-	$(INSTALL_DIR) $(1)/lib/firmware/e100
-	$(INSTALL_DATA) $(LINUX_DIR)/firmware/e100/d101m_ucode.bin $(1)/lib/firmware/e100/
-	$(INSTALL_DATA) $(LINUX_DIR)/firmware/e100/d101s_ucode.bin $(1)/lib/firmware/e100/
-	$(INSTALL_DATA) $(LINUX_DIR)/firmware/e100/d102e_ucode.bin $(1)/lib/firmware/e100/
 endef
 
 $(eval $(call KernelPackage,e100))
@@ -557,6 +550,25 @@ define KernelPackage/ixgbe/description
 endef
 
 $(eval $(call KernelPackage,ixgbe))
+
+
+define KernelPackage/ixgbevf
+  SUBMENU:=$(NETWORK_DEVICES_MENU)
+  TITLE:=Intel(R) 82599 Virtual Function Ethernet support
+  DEPENDS:=@PCI_SUPPORT +kmod-ixgbe
+  KCONFIG:=CONFIG_IXGBEVF \
+    CONFIG_IXGBE_VXLAN=n \
+    CONFIG_IXGBE_HWMON=n \
+    CONFIG_IXGBE_DCA=n
+  FILES:=$(LINUX_DIR)/drivers/net/ethernet/intel/ixgbevf/ixgbevf.ko
+  AUTOLOAD:=$(call AutoLoad,35,ixgbevf)
+endef
+
+define KernelPackage/ixgbevf/description
+ Kernel modules for Intel(R) 82599 Virtual Function Ethernet adapters.
+endef
+
+$(eval $(call KernelPackage,ixgbevf))
 
 
 define KernelPackage/b44
