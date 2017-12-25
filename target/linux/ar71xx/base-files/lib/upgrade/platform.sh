@@ -183,15 +183,6 @@ alfa_check_image() {
 	return 0
 }
 
-platform_nand_board_name() {
-	local board=$(board_name)
-
-	case "$board" in
-	rb*) echo "routerboard";;
-	*) echo "$board";;
-	esac
-}
-
 platform_check_image() {
 	local board=$(board_name)
 	local magic="$(get_magic_word "$1")"
@@ -521,6 +512,7 @@ platform_check_image() {
 	rb-911g-5hpacd|\
 	rb-912uag-2hpnd|\
 	rb-912uag-5hpnd|\
+	rb-921gs-5hpacd-r2|\
 	rb-951g-2hnd|\
 	rb-951ui-2hnd|\
 	rb-2011l|\
@@ -706,6 +698,7 @@ platform_pre_upgrade() {
 	rb-911g-5hpnd|\
 	rb-912uag-2hpnd|\
 	rb-912uag-5hpnd|\
+	rb-921gs-5hpacd-r2|\
 	rb-951g-2hnd|\
 	rb-951ui-2hnd|\
 	rb-2011il|\

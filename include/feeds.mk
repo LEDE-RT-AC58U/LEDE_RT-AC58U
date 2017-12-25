@@ -41,11 +41,11 @@ endef
 # 1: destination file
 define FeedSourcesAppend
 ( \
-  echo "src/gz %n_custom http://lede-ac58u.zyxmon.org/packages"; \
-  echo "# src/gz %n_core %U/targets/%S/packages"; \
+  echo "src/gz %d_custom http://lede-ac58u.zyxmon.org/packages"; \
+  echo "# src/gz %d_core %U/targets/%S/packages"; \
   $(strip $(if $(CONFIG_PER_FEED_REPO), \
-	$(foreach feed,base $(FEEDS_ENABLED),echo "src/gz %n_$(feed) %U/packages/%A/$(feed)";) \
+	$(foreach feed,base $(FEEDS_ENABLED),echo "src/gz %d_$(feed) %U/packages/%A/$(feed)";) \
 	$(if $(CONFIG_PER_FEED_REPO_ADD_DISABLED), \
-		$(foreach feed,$(FEEDS_DISABLED),echo "$(if $(CONFIG_PER_FEED_REPO_ADD_COMMENTED),# )src/gz %n_$(feed) %U/packages/%A/$(feed)";)))) \
+		$(foreach feed,$(FEEDS_DISABLED),echo "$(if $(CONFIG_PER_FEED_REPO_ADD_COMMENTED),# )src/gz %d_$(feed) %U/packages/%A/$(feed)";)))) \
 ) >> $(1)
 endef
