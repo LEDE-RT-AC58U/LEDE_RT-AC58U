@@ -190,7 +190,7 @@ define Device/asus_rt-ac58u
 	IMAGES = sysupgrade.tar flash-factory.trx
 	IMAGE/flash-factory.trx := copy-file $(KDIR)/tmp/$$(KERNEL_INITRAMFS_IMAGE) | uImage none
 	IMAGE/sysupgrade.tar := sysupgrade-tar | append-metadata
-	DEVICE_PACKAGES := ipq-wifi-rt-ac58u
+	DEVICE_PACKAGES := kmod-usb-phy-qcom-ipq4019 ipq-wifi-rt-ac58u
 endef
 TARGET_DEVICES += asus_rt-ac58u
 
