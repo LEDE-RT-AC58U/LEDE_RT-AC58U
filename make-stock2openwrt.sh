@@ -1,6 +1,6 @@
 #!/bin/sh
 
-echo "This script will create stock2lede.trx firmware."
+echo "This script will create stock2openwrt.trx firmware."
 echo "Please run this script after building standard firmwares."
 read -p "Continue (y/n)?" choice
 case "$choice" in 
@@ -29,7 +29,7 @@ if [ $nfiles != 1 ]; then
     exit 1
 fi
 echo "Creating files..."
-echo "stock2lede" > ./version
+echo "stock2openwrt" > ./version
 mkdir -p ./files/etc/rc.d
 mkdir -p ./files/etc/init.d
 ln -s ../init.d/zupgrade ./files/etc/rc.d/S99zupgrade
@@ -54,4 +54,4 @@ make
 echo "Removing files!"
 rm -f ./version
 rm -rf ./files
-echo "If there were no errors, your *stock2lede*.trx firmware is in bin/targets/ipq806x/generic/ folder."
+echo "If there were no errors, your *stock2openwrt*.trx firmware is in bin/targets/ipq806x/generic/ folder."
