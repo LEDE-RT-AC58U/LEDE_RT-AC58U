@@ -17,6 +17,7 @@ platform_check_image() {
 	ai-br100|\
 	air3gii|\
 	alfa-network,ac1200rm|\
+	alfa-network,awusfree1|\
 	all0239-3g|\
 	all0256n-4M|\
 	all0256n-8M|\
@@ -61,6 +62,7 @@ platform_check_image() {
 	fonera20n|\
 	freestation5|\
 	gb-pc1|\
+	gnubee,gb-pc2|\
 	gl-mt300a|\
 	gl-mt300n|\
 	gl-mt750|\
@@ -140,6 +142,7 @@ platform_check_image() {
 	sap-g3200u3|\
 	sk-wb8|\
 	sl-r7205|\
+	tama,w06|\
 	tew-638apb-v2|\
 	tew-691gr|\
 	tew-692gr|\
@@ -167,7 +170,8 @@ platform_check_image() {
 	whr-300hp2|\
 	whr-600d|\
 	whr-g300n|\
-	widora-neo|\
+	widora,neo-16m|\
+	widora,neo-32m|\
 	witi|\
 	wizfi630a|\
 	wl-330n|\
@@ -203,6 +207,7 @@ platform_check_image() {
 	zbt-ape522ii|\
 	zbt-cpe102|\
 	zbt-wa05|\
+	zbtlink,zbt-we1226|\
 	zbt-we1326|\
 	zbt-we2026|\
 	zbtlink,zbt-we3526|\
@@ -242,6 +247,7 @@ platform_check_image() {
 	mr200|\
 	tplink,c20-v1|\
 	tplink,c20-v4|\
+	tplink,c50-v3|\
 	tplink,tl-mr3420-v5|\
 	tl-wr840n-v4|\
 	tl-wr840n-v5|\
@@ -320,17 +326,8 @@ platform_do_upgrade() {
 	esac
 }
 
-disable_watchdog() {
-	killall watchdog
-	( ps | grep -v 'grep' | grep '/dev/watchdog' ) && {
-		echo 'Could not disable watchdog'
-		return 1
-	}
-}
-
 blink_led() {
 	. /etc/diag.sh; set_state upgrade
 }
 
-append sysupgrade_pre_upgrade disable_watchdog
 append sysupgrade_pre_upgrade blink_led

@@ -168,11 +168,27 @@ define U-Boot/pangolin
   UENV:=pangolin
 endef
 
+define U-Boot/nanopi_neo_plus2
+  BUILD_SUBTARGET:=cortexa53
+  NAME:=NanoPi NEO Plus2 (H5)
+  BUILD_DEVICES:=sun50i-h5-nanopi-neo-plus2
+  DEPENDS:=+PACKAGE_u-boot-nanopi_neo_plus2:arm-trusted-firmware-sunxi
+  UENV:=a64
+endef
+
 define U-Boot/pine64_plus
   BUILD_SUBTARGET:=cortexa53
   NAME:=Pine64 Plus A64
   BUILD_DEVICES:=sun50i-a64-pine64-plus
   DEPENDS:=+PACKAGE_u-boot-pine64_plus:arm-trusted-firmware-sunxi
+  UENV:=a64
+endef
+
+define U-Boot/orangepi_zero_plus
+  BUILD_SUBTARGET:=cortexa53
+  NAME:=Xunlong Orange Pi Zero Plus
+  BUILD_DEVICES:=sun50i-h5-orangepi-zero-plus
+  DEPENDS:=+PACKAGE_u-boot-orangepi_zero_plus:arm-trusted-firmware-sunxi
   UENV:=a64
 endef
 
@@ -197,11 +213,13 @@ UBOOT_TARGETS := \
 	Lamobo_R1 \
 	nanopi_m1_plus \
 	nanopi_neo \
+	nanopi_neo_plus2 \
 	orangepi_r1 \
 	orangepi_plus \
 	orangepi_2 \
 	pangolin \
-	pine64_plus
+	pine64_plus \
+	orangepi_zero_plus
 
 UBOOT_CONFIGURE_VARS += USE_PRIVATE_LIBGCC=yes
 
