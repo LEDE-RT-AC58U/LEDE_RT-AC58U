@@ -8,7 +8,7 @@ platform_check_image() {
 	local board=$(board_name)
 
 	case "$board" in
-	rt-ac58u)
+	asus,rt-ac58u)
 		CI_UBIPART="UBI_DEV"
 		local ubidev=$(nand_find_ubi $CI_UBIPART)
 		local asus_root=$(nand_find_volume $ubidev jffs2)
